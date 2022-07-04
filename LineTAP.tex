@@ -421,41 +421,40 @@ WHERE
 
 While we suggest it is in general preferable to do unit conversion
 client-side, here is how to express such a query in
-frequency\todo{replace gavo\_specconv with ivo\_specconv when it's time}.
+frequency.
 Note that you will have to swap lower and upper limits when converting
 from energy or frequency to wavelength.
 
 %please-run-a-test
 \begin{lstlisting}[language=SQL]
-SELECT title, gavo_specconv(vacuum_wavelength, 'THz')
+SELECT title, ivo_specconv(vacuum_wavelength, 'THz')
 FROM toss.line_tap
 WHERE
   vacuum_wavelength BETWEEN 
-    gavo_specconv(6.01, 'THz', 'Angstrom')
-    AND gavo_specconv(6.00, 'THz', 'Angstrom')
+    ivo_specconv(6.01, 'THz', 'Angstrom')
+    AND ivo_specconv(6.00, 'THz', 'Angstrom')
 \end{lstlisting}
 
 
-\subsubsection{Retrieving Spectral Lines for Identification}
+\subsubsection{Retrieving Atomic Spectral Lines for Identification}
 
 When a researcher has reason to believe significant amounts of
 Technetium are in a hot atmosphere, a client might look for lines for
-four and five time ionised Technetium using the InChI\todo{perhaps we
-ought to have a column element especially for atoms?} between 3000 and
-3500 Angstrom like this:
+three and four times ionised Technetium between 3000 and
+3500 Angstrom using the element column:
 
 %please-run-a-test
 \begin{lstlisting}[language=SQL]
 SELECT *
 FROM toss.line_tap
 WHERE
-  inchi LIKE 'InChI=1S/Tc/%'
+  element = 'Tc'
   AND ion_charge BETWEEN -4 AND -3
-  AND vacuum_wavelength BETWEEN 3000 AND 3500
+  AND vacuum_wavelength BETWEEN 3000 AND 3100
 \end{lstlisting}
 
 
-\subsubsection{Finding Spectral Lines for Specific Species}
+\subsubsection{Finding Molecular Spectral Lines for Specific Species}
 
 Where species are only known by elemental composition, lines can be
 located using SQL patterns against the inchi column, for instance:
@@ -495,13 +494,13 @@ $1.5\,\textrm{meV}$ above the ground state, one would write
 \begin{lstlisting}[language=SQL]
 SELECT TOP 10
   title, vacuum_wavelength, einstein_a, line_reference,
-  gavo_specconv(upper_energy, 'J', 'eV') as ue, inchi
+  ivo_specconv(upper_energy, 'J', 'eV') as ue, inchi
 FROM casa_lines.line_tap
 WHERE
   inchikey='JEVCWSUVFOYBFI-UHFFFAOYSA-N'
   and upper_energy between
-    gavo_specconv(1, 'meV', 'J')
-    AND gavo_specconv(2, 'meV', 'J')
+    ivo_specconv(1, 'meV', 'J')
+    AND ivo_specconv(2, 'meV', 'J')
 ORDER BY einstein_a DESC
 \end{lstlisting}
 
