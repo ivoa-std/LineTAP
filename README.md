@@ -1,3 +1,5 @@
+[![PDF-Preview](https://img.shields.io/badge/Preview-PDF-blue)](../../releases/download/auto-pdf-preview/LineTAP-draft.pdf)
+
 # LineTAP: IVOA Relational Model for Spectral Lines
 
 This document is a IVOA NOTE proposing a relational schema to describe spectral line transitions that can be queried using the TAP protocol. 
