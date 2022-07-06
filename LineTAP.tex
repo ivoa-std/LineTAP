@@ -95,8 +95,7 @@ stack, the service output comes in a very comprehensive derivative of
 the XML Schema for Atomic, Molecular and Solid Data XSAMS
 \citep{XSAMS:Docs}; in particular, its tree-like nature complicates
 casual use.  In addition, many interesting use cases can already be
-satisfied with a simple relational mapping of XSAMS. \todo{Prior art:
-HTML table XSLT from VAMDC -- do we want to reference it?}
+satisfied with a simple relational mapping of XSAMS. 
 
 This document proposes LineTAP, a simple way to access spectral line
 data through a VO service employing such a simplified relational
@@ -346,8 +345,7 @@ for molecules.
 
 \item \texttt{einstein\_a} Einstein coefficient, or transition probability.
 
-\item \texttt{xsams\_uri} \todo{elaborate description?} Where full XSAMS
- metadata is available for a 
+\item \texttt{xsams\_uri} Where full XSAMS metadata is available for a 
 transition, this link resolves to that document. What is returned MUST 
 return exactly one transition, and it MUST be in XSAMS version 1.
 
@@ -520,12 +518,11 @@ GROUP BY inchi
 
 
 \subsection{Translating VAMDC Queries}
-TBD\todo{Let's see what we can write here}
+TBD
 
 
 \section{Mapping from VAMDCXSAMS}
 \label{sect:mapping}
-\todo{this section will probably be adapted after implementing the mapping}
 
 The quantities used in the mapping belong to the following elements of XSAMS 
 Schema\footnote{\url{https://vamdc.org/documents/vamdc-xsams-doc-1.0/}\label{fn:schema}}.
@@ -547,7 +544,6 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 \item [vacuum\_wavelength]
   \begin{xsamsbridge}
   \item[data model] \xsref{RadiativeTransition.EnergyWavelength}\footref{fn:radtrans}
-  \todo{ add AirToVac, Unit, Vacuum?}
   \item[constraints] if \xsref{vacuum} is not true, use
     \xsref{AirToVac} to convert.
   \end{xsamsbridge}
