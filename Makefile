@@ -7,10 +7,10 @@ DOCNAME = LineTAP
 DOCVERSION = 1.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2020-05-27
+DOCDATE = 2022-07-06
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
-DOCTYPE = NOTE
+DOCTYPE = WD
 
 # An e-mail address of the person doing the submission to the document
 # repository (can be empty until a make upload is being made)
