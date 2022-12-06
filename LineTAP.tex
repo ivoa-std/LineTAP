@@ -3,7 +3,7 @@
 \usepackage{todonotes}
 \usepackage{textcomp}
 
-\newcommand{\footref}[1]{\textsuperscript{\ref{#1}}}
+\newcommand{\xsamsref}[1]{\textsuperscript{\ref{#1}}}
 
 \lstloadlanguages{SQL,XML}
 \lstset{flexiblecolumns=true,numberstyle=\small,showstringspaces=False,
@@ -543,7 +543,7 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 \begin{bigdescription}
 \item [vacuum\_wavelength]
   \begin{xsamsbridge}
-  \item[data model] \xsref{RadiativeTransition.EnergyWavelength}\footref{fn:radtrans}
+  \item[data model] \xsref{RadiativeTransition.EnergyWavelength}\xsamsref{fn:radtrans}
   \item[constraints] if \xsref{vacuum} is not true, use
     \xsref{AirToVac} to convert.
   \end{xsamsbridge}
@@ -558,7 +558,7 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 \item [method]
  \begin{xsamsbridge}
   \item[data model] \xsref{RadiativeTransition.EnergyWavelength.Method}
-     \footref{fn:radtrans} \footnote{\url{https://standards.vamdc.eu/dataModel/vamdcxsams/methods.html\#method}}
+     \xsamsref{fn:radtrans} \footnote{\url{https://standards.vamdc.eu/dataModel/vamdcxsams/methods.html\#method}}
  \item[constraints]
     \xsref{MethodID} must be equal to
     \xsref{MethodRef} of the respective energy wavelength. Possible values are given in the VAMDC standard.
@@ -578,8 +578,8 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
   
 \item [inchikey]
   \begin{xsamsbridge}
-    \item[data model] \xsref{Atom.Isotope.Ion.InChiKey}\footref{fn:ion},
-      \xsref{Molecule.MolecularChemicalSpecies.InChIKey}\footref{fn:moleculespecies},
+    \item[data model] \xsref{Atom.Isotope.Ion.InChiKey}\xsamsref{fn:ion},
+      \xsref{Molecule.MolecularChemicalSpecies.InChIKey}\xsamsref{fn:moleculespecies},
     \item[constraints] 
       \xsref{SpeciesRef} of radiative transition must be equal
       to \xsref{SpeciesID} of  the respective atom or molecule.
@@ -587,8 +587,8 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 
 \item [ion\_charge]
   \begin{xsamsbridge}
-    \item[data model] \xsref{Atom.Isotope.Ion.IonCharge}\footref{fn:ion} or
-      \xsref{Molecule.MolecularChemicalSpecies.IonCharge}\footref{fn:moleculespecies}
+    \item[data model] \xsref{Atom.Isotope.Ion.IonCharge}\xsamsref{fn:ion} or
+      \xsref{Molecule.MolecularChemicalSpecies.IonCharge}\xsamsref{fn:moleculespecies}
 
     \item[constraints]
       \xsref{SpeciesRef} of radiative transition must be equal
@@ -597,7 +597,7 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 
 \item [mass\_number (atoms)]
   \begin{xsamsbridge}
-    \item[data model] \xsref{Atom.Isotope.IsotopeParameters.MassNumber}\footref{fn:atom}
+    \item[data model] \xsref{Atom.Isotope.IsotopeParameters.MassNumber}\xsamsref{fn:atom}
 
     \item[constraints] \xsref{SpeciesRef} of radiative transition must be equal
       to \xsref{SpeciesID} of  the respective atom or molecule.
@@ -616,8 +616,8 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 \item [lower\_state\_energy]
   \begin{xsamsbridge}
     \item[data model]
-      \xsref{Atom.Isotope.Ion.AtomicState.AtomicNumericalData.StateEnergy} \footref{fn:atomicstate} or
-      \xsref{Molecule.MolecularState.MolecularStateCharacterisation.StateEnergy}\footref{fn:molecularstate}
+      \xsref{Atom.Isotope.Ion.AtomicState.AtomicNumericalData.StateEnergy} \xsamsref{fn:atomicstate} or
+      \xsref{Molecule.MolecularState.MolecularStateCharacterisation.StateEnergy}\xsamsref{fn:molecularstate}
     \item[constraints]  \xsref{LowerStateRef} must be equal to
     \xsref{StateID}  of the respective molecular state or atomic state.
 
@@ -626,13 +626,13 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 \item [einstein\_a]
   \begin{xsamsbridge}
     \item[data model]
-      \xsref{RadiativeTransition.Probability.TransitionProbabilityA} \footref{fn:radtrans}
+      \xsref{RadiativeTransition.Probability.TransitionProbabilityA} \xsamsref{fn:radtrans}
   \end{xsamsbridge}
 
 \item [line\_reference]
   \begin{xsamsbridge}
-    \item[data model] \xsref{Sources.Source.DigitalObjectIdentifier}\footref{fn:source},
-      \xsref{Sources.Source.UniformResourceIdentifier}\footref{fn:source}
+    \item[data model] \xsref{Sources.Source.DigitalObjectIdentifier}\xsamsref{fn:source},
+      \xsref{Sources.Source.UniformResourceIdentifier}\xsamsref{fn:source}
   \end{xsamsbridge}
 
 
