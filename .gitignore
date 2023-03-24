@@ -5,6 +5,7 @@
 *.aux
 *.bbl
 ivoatexmeta.tex
+gitmeta.tex
 *.log
 *.html
 *.zip

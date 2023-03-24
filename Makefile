@@ -7,7 +7,7 @@ DOCNAME = LineTAP
 DOCVERSION = 1.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2022-07-06
+DOCDATE = 2023-03-23
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = WD
@@ -18,7 +18,7 @@ AUTHOR_EMAIL=mcneves@ari.uni-heidelberg.de
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex
-SOURCES = $(DOCNAME).tex role_diagram.pdf
+SOURCES = $(DOCNAME).tex role_diagram.pdf gitmeta.tex
 
 # List of image files to be included in submitted package (anything that
 # can be rendered directly by common web browsers)
