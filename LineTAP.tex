@@ -102,12 +102,13 @@ This document proposes LineTAP, a simple way to access spectral line
 data through a VO service employing such a simplified relational
 mapping.  The resulting table schema is presented in
 section~\ref{sect:quantities}, while the mapping between our columns and the
-VAMDC-XSAMS Data Model is given in section~\ref{sect:mapping}. As the 
-InChi number for referencing molecules can become complicated for use,
+VAMDC-XSAMS Data Model is given in section~\ref{sect:mapping}. 
+
+As the  InChi number for referencing molecules can become complicated for use,
 a second table, the \textit{species table}, ist generated from the LineTap table 
-containing the species InChiNumber, name and formula. So this table can be searched
+containing the species InChiNumber, name and formula. This table can be searched
 before querying LineTap to find the corresponding InChi of a certain molecule. In 
-\ref{sect:speciestable} a description of this table and it's use can be found.
+Section \ref{sect:speciestable} a description of this table and it's use can be found.
 
 When accessed using the Table Access Protocol TAP
 \citep{2019ivoa.spec.0927D}, the tables can be queried using the
@@ -238,6 +239,7 @@ high-precision atmosphere models.
 \item Deal with solid-state spectroscopy.
 \item Publish lines of non-electromagnetic messengers.
 \end{itemize}
+
 
 
 \begin{table}[hpt]
@@ -384,7 +386,7 @@ like an URI, DOI or bibcode.
 
 \end{itemize}
 
-\section{Species Table}
+\section{Species Table}\label{sect:speciestable}
 \label{ref:speciestable}
 
 The Species Table, listed in Table~\ref{tab:spcols}, is used to facilitate the 
@@ -418,7 +420,7 @@ certain  molecule.
 \sptablerule
 \end{tabular}
 \caption{The columns that make up the Species Table. }
-\label{tab:ltcols}
+\label{tab:spcols}
 \end{table}
 The columns inchikey, name and formula are indexed to the columns of same name in the LineTap table.
 
@@ -471,6 +473,7 @@ wrong to use \texttt{ivo\_specconv} on
 
 In this section, we give queries addressing the use cases from
 section~\ref{sect:use-cases}.
+\todo{add example using species table}.
 
 \subsubsection{Identifying a Single Line}
 
