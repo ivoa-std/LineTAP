@@ -296,7 +296,7 @@ not be NULL.}
 \end{table}
 
 
-\section{Spectral Line Data}\label{sect:quantities}
+\section{Spectral Lines Table}\label{sect:quantities}
 
 Table~\ref{tab:ltcols} gives the columns that make up the LineTAP
 relational model.  Implementations MUST have all columns given in this
@@ -411,8 +411,11 @@ explicitly possible to associate multiple names with a single InChI.
 There is no explicit relationship between a species table and LineTAP
 tables on a given service, i.e., the presence of a species in the the
 species table is not a guarantee that data on it is available from any
-table in the service.\todo{Is there a use case for having InChI in here?
-I'd say InChIKey is good enough.}
+table in the service.
+
+For most cases, only the InChIKey is enough to reference a molecule. The InChi
+column is present in this table for the case that users want to use it to confirm if the 
+returned  molecule is the one they're searching for.
 
 \begin{table}[hpt]
 \hskip -0.05\linewidth
@@ -438,12 +441,7 @@ I'd say InChIKey is good enough.}
 \label{tab:spcols}
 \end{table}
 
-
-\section{Protocol}
-\label{sect:protocol}
-\subsection{Queries: LineTAP}
-
-\subsection{User-defined functions}
+\section{ADQL User-defined functions}
 \label{sect:udfs}
 
 LineTAP services MUST implement the \texttt{ivo\_specconv} user defined
