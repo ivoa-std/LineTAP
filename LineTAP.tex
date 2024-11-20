@@ -104,8 +104,16 @@ mapping.  The resulting table schema is presented in
 section~\ref{sect:quantities}, while the mapping between our columns and the
 VAMDC-XSAMS Data Model is given in section~\ref{sect:mapping}.
 
+During the development of the standard, a major problem in molecular
+spectroscopy turned out to be species nomenclature.  The core LineTAP
+table sidesteps this problem by identifying species using IUPAC standard
+InChIs, a choice unpopular with many practitioners.  To facilitate the
+use of colloquial species designations (``ethyl alcohol''), this
+specification also defines a \textit{species table} associating common
+names and sum formulas with InChIs in section \ref{sect:speciestable}.
+
 When accessed using the Table Access Protocol TAP
-\citep{2019ivoa.spec.0927D}, the table can be queried using the
+\citep{2019ivoa.spec.0927D}, the tables can be queried using the
 expressive SQL-derived query language ADQL, while query results are
 available in the VOTable format, easily readable by VO client
 applications.  Line databases accessible in this way can be registered
@@ -220,6 +228,13 @@ In particular to provide an incentive to contribute to the global
 repository of line data, it should be as simple as possible for users to
 give credit to the contributors of line data.
 
+\subsection{Resolution of Molecule Designation}
+\label{uc:resolution}
+
+A researcher wants to find lines for the molecule they have been calling
+``Methyl Mercaptan'' or designated by a pseudo-structural formula like
+\verb|CH3SHv=0| for a long time.
+
 
 \subsection{Non-Use Cases}
 
@@ -233,6 +248,7 @@ high-precision atmosphere models.
 \item Deal with solid-state spectroscopy.
 \item Publish lines of non-electromagnetic messengers.
 \end{itemize}
+
 
 
 \begin{table}[hpt]
@@ -280,7 +296,7 @@ not be NULL.}
 \end{table}
 
 
-\section{Spectral Line Data}\label{sect:quantities}
+\section{Spectral Lines Table}\label{sect:quantities}
 
 Table~\ref{tab:ltcols} gives the columns that make up the LineTAP
 relational model.  Implementations MUST have all columns given in this
@@ -379,12 +395,53 @@ like an URI, DOI or bibcode.
 
 \end{itemize}
 
+\section{Species Table}\label{sect:speciestable}
+\label{ref:speciestable}
 
-\section{Protocol}
-\label{sect:protocol}
-\subsection{Queries: LineTAP}
+The species table is used to facilitate the referencing of molecules. As
+there are many summary formulas and colloquial molecule names for common
+species (and more than one species may correspond to a given summary
+formula and even colloquial name), the resolution of such identifiers to
+InChIs is generally non-trivial.
 
-\subsection{User-defined functions}
+LineTAP's species table contains a mapping between common names and
+summary formulas and InChIs. It should be populated by data providers
+publishing molecule data to the best of their knowledge.  It is
+explicitly possible to associate multiple names with a single InChI.
+There is no explicit relationship between a species table and LineTAP
+tables on a given service, i.e., the presence of a species in the the
+species table is not a guarantee that data on it is available from any
+table in the service.
+
+For most cases, only the InChIKey is enough to reference a molecule. The InChi
+column is present in this table for the case that users want to use it to confirm if the 
+returned  molecule is the one they're searching for.
+
+\begin{table}[hpt]
+\hskip -0.05\linewidth
+\begin{tabular}{p{0.43\linewidth}cp{0.5\linewidth}}
+\sptablerule
+\textbf{Name [Unit]} \ucd{UCD}&\textbf{Type}&\textbf{Description}\\
+\sptablerule
+% GENERATED: python3 make-species-table.py
+\texttt{inchikey} \hfil\break\ucd{} & text & \raggedright InChIKey of this species\tabularnewline
+\rowsep
+\texttt{inchi} \hfil\break\ucd{} & text & \raggedright InChI of this species\tabularnewline
+\rowsep
+\texttt{name} \hfil\break\ucd{} & text & \raggedright A common name of this species\tabularnewline
+\rowsep
+\texttt{formula} \hfil\break\ucd{} & text & \raggedright Chemical formula of this species in some free-ish notation\tabularnewline
+\rowsep
+\texttt{source\_id} \hfil\break\ucd{} & text & \raggedright VAMDC identifier of the origin of this mapping\tabularnewline
+
+% /GENERATED
+\sptablerule
+\end{tabular}
+\caption{The columns that make up the Species Table. }
+\label{tab:spcols}
+\end{table}
+
+\section{ADQL User-defined functions}
 \label{sect:udfs}
 
 LineTAP services MUST implement the \texttt{ivo\_specconv} user defined
@@ -541,6 +598,24 @@ FROM casa_lines.line_tap
 GROUP BY inchi
 \end{lstlisting}
 
+\subsubsection{Searching With Trivial Molecule Names}
+
+Searching with trivial names as discussed in use
+case~\ref{uc:resolution} would often be a two-step process where clients
+ask the researcher which InChI would correspond the the species they
+were looking for.  In simple cases, however, a single joined query can be
+run, too.
+
+% please-run-a-test
+\begin{lstlisting}[language=SQL]
+SELECT
+  *
+FROM casa_lines.line_tap
+JOIN species.main as s USING (inchikey)
+WHERE s.name='Methylidynium'
+\end{lstlisting}
+
+
 \section{Mapping from VAMDCXSAMS}
 \label{sect:mapping}
 
@@ -665,16 +740,13 @@ Listed below are the LineTAP quantities defined in section \ref{sect:quantities}
 
 \subsection{Registering LineTAP-conforming Tables}
 
-LineTAP tables are registered using VODataService \citep{2021ivoa.spec.1102D}
+LineTAP line tables are registered using VODataService \citep{2021ivoa.spec.1102D}
 tablesets, where the table utype is set to
-$$\hbox{\verb|ivo://ivoa.net/std/linetap#table-1.0|}.$$
+$$\hbox{\verb|ivo://ivoa.net/std/linetap#lines-1.0|}.$$
 
-The tableset is normally contained in a VODataService \xmlel{CatalogService}
-record with a TAP capability, and this capability normally is an auxiliary
-capability as per DDC \citep{2019ivoa.spec.0520D}.  For one-table
-services a full TAPRegExt \citep{2012ivoa.spec.0827D} capability is also
-allowed; other resource types can be used for registration as
-appropriate.
+The tableset is contained in a VODataService \xmlel{CatalogResource}
+record with a TAP auxiliary capability
+as per DDC \citep{2019ivoa.spec.0520D}.
 
 Further capabilities, for instance for full VAMDC or legacy SLAP
 services, may be given in the same record.
@@ -714,7 +786,7 @@ clients discover that this particular table contains LineTAP data:
   <name>toss.ivoa_lines</name>
   <title>TOSS</title>
   <description> The LineTAP version of...</description>
-  <utype>ivo://ivoa.net/std/linetap#table-1.0</utype>
+  <utype>ivo://ivoa.net/std/linetap#lines-1.0</utype>
   ...
 </table>
 \end{lstlisting}
@@ -726,6 +798,12 @@ of the table is an artefact of LineTAP registrations being single-table
 and is thus to be expected in most registrations of this type.  Clients
 are advised to use the resource description for full text searches.
 
+Species tables are registered in exactly the same way, except their
+utype is
+$$\hbox{\verb|ivo://ivoa.net/std/linetap#species-1.0|}.$$
+Data providers should only register line and species tables in one
+resource record if the species table really has the same metadata
+(description, author, source, etc) as the line table.
 
 \subsection{Discovering LineTAP services}
 
@@ -738,19 +816,16 @@ Translated into RegTAP \citep{2019ivoa.spec.1011D}, the following query
 would return TAP access URLs and the table names:
 
 \begin{lstlisting}[language=SQL]
-SELECT DISTINCT table_name, access_url
+SELECT table_name, access_url
 FROM rr.res_table
   NATURAL JOIN rr.capability
   NATURAL JOIN rr.interface
 WHERE
-  table_utype LIKE 'ivo://ivoa.net/std/linetap#table-1.%'
+  table_utype LIKE 'ivo://ivoa.net/std/linetap#lines-1.%'
   AND standard_id LIKE 'ivo://ivoa.net/std/tap%'
   AND intf_role='std'
+  AND res_type='vs:catalogresource'
 \end{lstlisting}
-
-The \texttt{DISTINCT} in the main query is a rough filter that removes
-entries duplicated because their tables are registred both in the main
-TAP record and in an auxiliary capability.
 
 The regular expression in the utype match is to make sure minor version
 increments do not prevent service discovery; by IVOA versioning rules,
@@ -759,14 +834,16 @@ clients of version 1.  We do not constrain the version of the TAP
 service. Clients may want to adapt the TAP discovery pattern to match
 their specific needs.
 
-
+Adapting the utype, this query will work analogously for species tables.
 
 \appendix
-\section{Changes from Previous Versions}
+\section{Changes from WD-2023-03-23}
 
-No previous versions yet.
-% these would be subsections "Changes from v. WD-..."
-% Use itemize environments.
+\begin{itemize}
+\item Adding the species table
+\item Changing the line table utype to \dots lines-1.0 (rather than
+\dots table-1.0 before).
+\end{itemize}
 
 
 \bibliography{ivoatex/ivoabib,ivoatex/docrepo, localrefs}

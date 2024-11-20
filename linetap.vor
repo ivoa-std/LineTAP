@@ -1,11 +1,11 @@
-<ri:Resource 
-	xsi:type="vstd:Standard" 
-	created="2020-10-26T11:44:00" 
+<ri:Resource
+	xsi:type="vstd:Standard"
+	created="2020-10-26T11:44:00"
 	updated="2020-10-26T11:44:00"
 	status="active"
-	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0" 
-	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0"
+	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:ri="http://www.ivoa.net/xml/RegistryInterface/v1.0"
 	xsi:schemaLocation="http://www.ivoa.net/xml/VOResource/v1.0
 		http://www.ivoa.net/xml/VOResource/v1.0
@@ -16,7 +16,7 @@
 
   <title>IVOA Relational model for Spectral Lines (LineTAP)</title>
   <shortName>linetap</shortName>
-  <identifier>ivo://ivoa.net/std/linetap</identifier> 
+  <identifier>ivo://ivoa.net/std/linetap</identifier>
   <curation>
     <publisher>IVOA</publisher>
 
@@ -61,8 +61,14 @@
   <endorsedVersion status="wd">1.0</endorsedVersion>
 
 	<key>
-		<name>table-1.0</name>
-		<description>The LineTAP table schema as of version 1.0.
+		<name>lines-1.0</name>
+		<description>The LineTAP lines table schema as of version 1.0.
+		</description>
+	</key>
+
+	<key>
+		<name>species-1.0</name>
+		<description>The LineTAP species table schema as of version 1.0.
 		</description>
 	</key>
 
