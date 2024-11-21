@@ -9,7 +9,7 @@ Dependency: python3-pyvo (and hence astropy).
 
 import pyvo
 
-NON_NULL_COLUMNS = {'title', 'vacuum_wavelength'}
+NON_NULL_COLUMNS = {'title', 'vacuum_wavelength', 'line_reference'}
 TYPE_MAP = {
 	("char", "*"): "text",
 	("int", ""): "integer",
@@ -17,7 +17,7 @@ TYPE_MAP = {
 
 
 def e(tx):
-	"""returns tx with TeX's standard active (and other magic) characters 
+	"""returns tx with TeX's standard active (and other magic) characters
 	escaped.
 	"""
 	return tx.replace("\\", "$\\backslash$"
@@ -49,7 +49,7 @@ def main():
 	for row in svc.run_sync("""
 			select column_name, description, unit, ucd, datatype, arraysize
 			from tap_schema.columns
-			where 
+			where
   			table_name='casa_lines.line_tap'
   			and std=1
 			order by column_index"""):
@@ -61,8 +61,8 @@ def main():
 		
 		parts.append("&")
 		parts.append(get_type(
-			row["datatype"], 
-			row["arraysize"], 
+			row["datatype"],
+			row["arraysize"],
 			row["column_name"] in NON_NULL_COLUMNS))
 
 		parts.append("&")

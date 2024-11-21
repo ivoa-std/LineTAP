@@ -284,7 +284,7 @@ high-precision atmosphere models.
 \rowsep
 \texttt{xsams\_uri} \hfil\break\ucd{meta.ref} & text & \raggedright A URI for a full XSAMS description of this line.\tabularnewline
 \rowsep
-\texttt{line\_reference} \hfil\break\ucd{meta.ref} & text & \raggedright Reference to the source of the line data; this could be a bibcode, a DOI, or a plain URI.\tabularnewline
+\texttt{line\_reference} \hfil\break\ucd{meta.ref} & \textbf{text} & \raggedright Reference to the source of the line data; this could be a bibcode, a DOI, or a plain URI.\tabularnewline
 
 % /GENERATED
 \sptablerule
@@ -391,7 +391,9 @@ transition, this link resolves to that document. What is returned MUST
 return exactly one transition, and it MUST be in XSAMS version 1.
 
 \item \texttt{line\_reference} Information about the source of the line data,
-like an URI, DOI or bibcode.
+like an URI, DOI or bibcode.  This is a mandatory column.  Users should
+have a guaranteed way of finding out where a piece of information came
+from and where additional information is available.
 
 \end{itemize}
 
