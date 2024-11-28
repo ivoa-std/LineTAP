@@ -7,7 +7,7 @@
 name: Check the IVOA document
 
 env:
-  doc_name: LineTAP
+  doc_name:
 
 on:
   pull_request:
@@ -28,7 +28,9 @@ jobs:
     - name: Setup dependencies
       run: |
         sudo apt update
-        sudo apt install texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended xsltproc latexmk cm-super librsvg2-bin
+        sudo apt install texlive-latex-base texlive-latex-recommended \
+                         texlive-latex-extra texlive-fonts-recommended \
+                         pdftk xsltproc latexmk cm-super
 
     - name: Build the document
       run: make
